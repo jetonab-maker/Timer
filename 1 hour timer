@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>1-Hour Countdown Timer</title>
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: linear-gradient(135deg, #1e1e2f, #121212);
+      color: #ffffff;
+      text-align: center;
+    }
+    h1 {
+      font-size: 2.5em;
+      margin-bottom: 20px;
+    }
+    #timer {
+      font-size: 5em;
+      letter-spacing: 2px;
+      margin-bottom: 30px;
+    }
+    button {
+      margin: 5px;
+      padding: 12px 24px;
+      border: none;
+      border-radius: 12px;
+      background: #00bfff;
+      color: white;
+      font-size: 1.2em;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    button:hover {
+      background: #0099cc;
+    }
+  </style>
+</head>
+<body>
+  <h1>1-Hour Countdown Timer</h1>
+  <div id="timer">60:00</div>
+  <div>
+    <button onclick="startTimer()">Start</button>
+    <button onclick="resetTimer()">Reset</button>
+  </div>
+
+  <script>
+    let duration = 60 * 60; // 1 hour = 3600 seconds
+    let remaining = duration;
+    let interval;
+
+    function updateDisplay() {
+      let minutes = Math.floor(remaining / 60);
+      let seconds = remaining % 60;
+      document.getElementById('timer').textContent =
+        `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+    }
+
+    function startTimer() {
+      clearInterval(interval);
+      interval = setInterval(() => {
+        if (remaining <= 0) {
+          clearInterval(interval);
+          alert("⏰ Time’s up!");
+        } else {
+          remaining--;
+          updateDisplay();
+        }
+      }, 1000);
+    }
+
+    function resetTimer() {
+      clearInterval(interval);
+      remaining = duration;
+      updateDisplay();
+    }
+
+    updateDisplay();
+  </script>
+</body>
+</html>
